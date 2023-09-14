@@ -26,12 +26,12 @@ const UserSchema = new mongoose.Schema({
     },
 
     lat:{
-        type: Number,
+        type: String,
         // require: true
     },
 
     long:{
-        type: Number,
+        type: String,
         // require: true
     }
 

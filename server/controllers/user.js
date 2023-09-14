@@ -79,3 +79,34 @@ export const login = async(req, res) => {
  }
 
 }
+
+
+export const location=async(req,res)=>{
+
+ try {
+  const user = await User.findById(req.user._id);
+  
+  const {lat,long}=req.body;
+ 
+  user.lat=lat;
+  user.long=long;
+
+  await user.save();
+
+  return res.status(200).send({
+    message:"Location fetched",
+    success: true,
+  })
+
+ } catch (error) {
+  console.log(error);
+
+  res.status(500).send({
+    error: error.message,
+    message: "Something went wrong",
+    success: false,
+  });
+  
+ }
+
+}
