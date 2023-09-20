@@ -1,12 +1,14 @@
-const express=require("express");
-const { getNearbyPlaces} = require("../controllers/locationController");
+// const express=require("express");
+import express from "express";
+// const { getNearbyPlaces} = require("../controllers/locationController");
+import getNearbyPlaces from "../controllers/locationController.js";
 
 const router=express.Router();
 
 router.route("/getPlaces").get(getNearbyPlaces);
 
-
-module.exports=router;
+export default router;
+// module.exports=router;
 
 
 

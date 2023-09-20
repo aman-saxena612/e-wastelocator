@@ -5,7 +5,8 @@
 // // //   &type=restaurant
 // // //   &key=YOUR_API_KEY
 
-const axios = require("axios");
+// const axios = require("axios");
+import axios from "axios";
 
 const apiUrl = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json';
 const apiKey = process.env.GOOGLE_API_KEY;
@@ -18,7 +19,7 @@ async function getNearbyPlaces(req, res) {
       location: '23.3439232,85.311488',
       radius: 1500,
       type: 'e_waste',
-      key: apiKey,
+      key: process.env.GOOGLE_API_KEY,
     };
 
     const response = await axios.get(apiUrl, { params: queryParams });
@@ -35,6 +36,7 @@ async function getNearbyPlaces(req, res) {
 }
 
 // Export the controller function
-module.exports = {
-  getNearbyPlaces,
-};
+export default getNearbyPlaces;
+// module.exports = {
+//   getNearbyPlaces,
+// };

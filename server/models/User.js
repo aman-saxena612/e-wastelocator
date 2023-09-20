@@ -1,7 +1,10 @@
-const express = require("express");
-const mongoose = require("mongoose");
+import express from "express";
+import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken"
 
-const User = new mongoose.Schema({
+
+const UserSchema = new mongoose.Schema({
     name:{
         type: String,
         require: true
@@ -11,26 +14,46 @@ const User = new mongoose.Schema({
         type: String,
         require: true
     },
+    password:{
+        type: String,
+        require:true,
+    },
 
     phone:{
         type: Number,
         require: true,
-        min: 10,
-        max: 10
+        
     },
 
     lat:{
         type: Number,
-        require: true
+        // require: true
     },
 
     long:{
         type: Number,
-        require: true
+        // require: true
     }
 
 },
 {timestamps: true}
 );
 
-module.exports = mongoose.model('user', User);
+
+UserSchema.pre("save", async function (next) {
+    if (!this.isModified("password")) return next();
+    this.password = await bcrypt.hash(this.password, 10);
+    next();
+  });
+  
+  UserSchema.methods.getJWTToken = function () {
+    return jwt.sign({ _id: this._id }, process.env.JWT_SECRET, {
+      expiresIn: "10d",
+    });
+  };
+  
+  UserSchema.methods.comparePassword = async function (password) {
+    return await bcrypt.compare(password, this.password);
+  };
+
+export const User = mongoose.model('user', UserSchema);

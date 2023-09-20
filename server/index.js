@@ -1,14 +1,19 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const dotenv = require("dotenv");
-const router = express.Router();
-const axios = require('axios');
-dotenv.config();
-require("./db/conn");
-const getPlaces=require("./routes/getLocations");
+import express from "express";
+// import mongoose from "mongoose";
+import {config} from "dotenv";
+import cors from "cors"
+
+import userRoute from "./routes/user.js";
+import {connectDB} from "./db/conn.js";
+import router from "./routes/getLocations.js";
+import getNearbyPlaces from "./controllers/locationController.js";
+config();
+connectDB();
+
+// require("./db/conn");
 
 const port = 8001;
+
 const app = express();
 
 //middlewares:
@@ -17,9 +22,8 @@ app.use(cors({
     origin: "http://localhost:3000"
 }));
 
-
-
-app.use("/api",getPlaces);
+app.use('/api/v1/users',userRoute)
+app.use("/api/getPlaces", getNearbyPlaces);
 
 app.get("/", (req, res) => {
     res.send("Hey from backend");
@@ -39,42 +43,42 @@ app.get("/", (req, res) => {
   
   
   // Utility function to get nearby places
-  function getNearbyPlaces() {
-    const apiUrl = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json';
-    const apiKey = process.env.GOOGLE_API_KEY;
+  // function getNearbyPlaces() {
+  //   const apiUrl = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json';
+  //   const apiKey = process.env.GOOGLE_API_KEY;
     
-    const queryParams = {
-      keyword: 'ewaste',
-      location: '23.3439232%2C85.311488',
-      radius: 1500,
-      type: 'e_waste',
-      key: apiKey,
-    };
+  //   const queryParams = {
+  //     keyword: 'ewaste',
+  //     location: '23.3439232%2C85.311488',
+  //     radius: 1500,
+  //     type: 'e_waste',
+  //     key: apiKey,
+  //   };
   
-    return axios
-      .get(apiUrl, { params: queryParams })
-      .then((response) => {
-        // Handle the response data here
-        return response.data;
-      })
-      .catch((error) => {
-        // Handle errors here
-        throw error;
-      });
-  }
+  //   return axios
+  //     .get(apiUrl, { params: queryParams })
+  //     .then((response) => {
+  //       // Handle the response data here
+  //       return response.data;
+  //     })
+  //     .catch((error) => {
+  //       // Handle errors here
+  //       throw error;
+  //     });
+  // }
   
   // Define the /api/getNearbyPlaces endpoint
-  router.get('/getNearbyPlaces', async (req, res) => {
-    try {
-      const response = await getNearbyPlaces();
-      res.json(response);
-    } catch (error) {
-      console.error('Error fetching nearby places:', error);
-      res.status(500).json({ error: 'Internal server error' });
-    }
-  });
+  // router.get('/getNearbyPlaces', async (req, res) => {
+  //   try {
+  //     const response = await getNearbyPlaces();
+  //     res.json(response);
+  //   } catch (error) {
+  //     console.error('Error fetching nearby places:', error);
+  //     res.status(500).json({ error: 'Internal server error' });
+  //   }
+  // });
   
-  module.exports = router;  
+  // module.exports = router;  
 
   // app.get("/api/anything", getNearbyPlaces);
 

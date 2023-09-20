@@ -1,28 +1,54 @@
 import React, { useState, useEffect } from 'react';
-import { GoogleMap, LoadScript, MarkerF } from '@react-google-maps/api';
-// import { getNearbyPlaces } from '../../server/routes/anything';
+import { GoogleMap, LoadScript, MarkerF, InfoWindow } from '@react-google-maps/api';
 import axios from "axios";
 
 const Mapp = () => {
   const [userLocation, setUserLocation] = useState({ lat: 0, lng: 0 });
   const [placesData, setPlacesData] = useState([]);
+  const [selectedMarker, setSelectedMarker] = useState(null);
 
+  const [loading, setLoading] = useState(true);
+
+  // Make the HTTP request to your server when the component mounts
+ 
   useEffect(() => {
-    getData();
+   
+
+    fetchData();
   }, []);
 
-  async function getData() {
+  async function fetchData() {
     try {
-      const { data } = await axios.get("http://localhost:8001/api/getPlaces");
-      // console.log(data);
-      setPlacesData(data);
-      console.log(placesData);
-      // console.log(placesData.data);
-
+      const {data} = await axios.get("http://localhost:8001/api/getPlaces"); // Replace with your actual API endpoint
+      // const {data} =  response;
+      
+        // const results=data?.results;
+        // console.log(data.data.results[0].geometry.location.lat);
+      
+      // Assuming your server returns the data as response.data.data
+      setPlacesData(data.data.results); // Update the state with the received data
+      console.log(data.data.results); 
+      // console.log(placesData[0].geometry.location.lat)// Update the state with the received data);
+      // console.log(placesData);
+      setLoading(false); // Set loading to false
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching data:", error);
+      setLoading(false); // Set loading to false in case of an error
     }
   }
+  // data.results[0].geometry.location.lat
+  // async function getData() {
+  //   try {
+  //     const { data } = await axios.get("http://localhost:8001/api/getPlaces");
+  //     console.log(data);
+  //     // setPlacesData(data);
+  //     // console.log(placesData);
+  //     // console.log(placesData.data);
+
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -37,9 +63,8 @@ const Mapp = () => {
   }, []);
   // <MarkerF onClick={handleMarkerClick} position={data.results[0].geometry.location} />
 
-  const handleMarkerClick = (e) => {
-    // const latLng = e.latLng;
-    // console.log(latLng);
+  const handleMarkerClick = (marker) => {
+    setSelectedMarker(marker);
   };
 
   return (
@@ -47,7 +72,7 @@ const Mapp = () => {
       <GoogleMap
         center={userLocation}
         zoom={12}
-        mapContainerStyle={{ width: '500px', height: '500px' }}
+        mapContainerStyle={{ width: '50vw', height: '600px' }}
         effect={() => {
           if (navigator.geolocation) {
             navigator.geolocation.watchPosition((position) => {
@@ -62,17 +87,35 @@ const Mapp = () => {
         }}
       >
 
-        {/* {placesData.map((place, index) => (
+        { placesData.map((place, index) => (
           <MarkerF
             key={index} // Ensure each marker has a unique key
-            position={{ lat: place.results[0].geometry.location.lat, lng: place.results[0].geometry.location.lat }}
-            onClick={handleMarkerClick}
+            position={{ lat: place.geometry.location.lat, lng: place.geometry.location.lng}}
+            onClick={() => handleMarkerClick(place)}
           />
-        ))} */}
-        <MarkerF onClick={handleMarkerClick} position={userLocation} />
+        )) 
+        }
+
+        {selectedMarker && (
+    <InfoWindow
+      position={{ lat: selectedMarker.geometry.location.lat, lng: selectedMarker.geometry.location.lng }}
+      onCloseClick={() => setSelectedMarker(null)} // Close the InfoWindow
+    >
+      {/* InfoWindow content */}
+      <div className="info-window">
+        <h2>{selectedMarker.vicinity}</h2>
+        <button> Book Appointment </button>
+        {/* <p>{selectedMarker.description}</p> */}
+      </div>
+    </InfoWindow>
+  )}
+
+        <MarkerF  position={userLocation} />
       </GoogleMap>
     </LoadScript>
   );
 };
 
 export default Mapp;
+
+// data.results[0].geometry.location.lng
