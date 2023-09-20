@@ -1,4 +1,17 @@
-// // const router = require("express").Router();  
+const express=require("express");
+const { getNearbyPlaces} = require("../controllers/locationController");
+
+const router=express.Router();
+
+router.route("/getPlaces").get(getNearbyPlaces);
+
+
+module.exports=router;
+
+
+
+
+// const router = require("express").Router();  
 // const mongoose = require("mongoose");
 // const axios = require("axios");
 
@@ -10,10 +23,10 @@
 
 // function getNearbyPlaces() {
 //     const queryParams = {
-//       keyword: 'cruise',
-//       location: '-33.8670522,151.1957362',
+//       keyword: 'ewaste',
+//       location: '23.3439232%2C85.311488',
 //       radius: 1500,
-//       type: 'restaurant',
+//       type: 'e_waste',
 //       key: apiKey,
 //     };
   
@@ -35,9 +48,10 @@
 
 
 
-// // https://maps.googleapis.com/maps/api/place/nearbysearch/json
-// //   ?keyword=cruise
-// //   &location=-33.8670522%2C151.1957362
-// //   &radius=1500
-// //   &type=restaurant
-// //   &key=YOUR_API_KEY
+// // // // https://maps.googleapis.com/maps/api/place/nearbysearch/json
+// // // //   ?keyword=cruise
+// // // //   &location=-33.8670522%2C151.1957362
+// // // //   &radius=1500
+// // // //   &type=restaurant
+// // // //   &key=YOUR_API_KEY
+
