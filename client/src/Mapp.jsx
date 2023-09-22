@@ -91,6 +91,14 @@ const Mapp = () => {
           <MarkerF
             key={index} // Ensure each marker has a unique key
             position={{ lat: place.geometry.location.lat, lng: place.geometry.location.lng}}
+            icon={{
+            url: "./icons8-map-marker.gif",
+ // Specify the path to your custom marker icon image
+            scaledSize: {
+              width: 50,
+              height: 50
+            }
+          }}
             onClick={() => handleMarkerClick(place)}
           />
         )) 
@@ -110,7 +118,16 @@ const Mapp = () => {
     </InfoWindow>
   )}
 
-        <MarkerF  position={userLocation} />
+  {/* icon={{
+            url: "./icons8-user-location-64.png",
+ // Specify the path to your custom marker icon image
+            scaledSize: {
+              width: 50,
+              height: 50
+            }
+          }} */}
+
+        <MarkerF position={userLocation} />
       </GoogleMap>
     </LoadScript>
   );
