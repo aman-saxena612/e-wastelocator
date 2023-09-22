@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import { User } from "../models/User.js";
 import { sendToken } from "../middlewares/sendToken.js";
+import cloudinary  from 'cloudinary';
+import getDataUri from "../middlewares/datauri.js";
 
 export const register = async (req, res) => {
   try {
@@ -109,4 +111,39 @@ export const location=async(req,res)=>{
   
  }
 
+}
+
+
+export const imageUpload=async(req,res)=>{
+
+  try {
+
+    const file=req.file;
+    
+    const user=await User.findById(req.user._id)
+    
+    const fileUri=getDataUri(file);
+    const myCloud=await cloudinary.v2.uploader.upload(fileUri.content);
+
+    user.image={
+      public_id:myCloud.public_id,
+      url:myCloud.secure_url
+    
+    }
+    await user.save(); 
+    
+      res.status(200).json({
+        success:true,
+        message:"Image Uploaded Successfully"
+      })
+    
+  } catch (error) {
+    console.log(error.message);
+    
+    res.status(500).send({
+      error: error.message,
+      message: "Something went wrong",
+      success: false,
+    });
+  }
 }

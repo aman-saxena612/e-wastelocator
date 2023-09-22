@@ -33,7 +33,18 @@ const UserSchema = new mongoose.Schema({
     long:{
         type: String,
         // require: true
+    },
+    image:[{
+      public_id:{
+        type:String,
+       
+    },
+    url:{
+        type:String,
+       
+
     }
+    }]
 
 },
 {timestamps: true}
