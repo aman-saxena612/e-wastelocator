@@ -5,7 +5,7 @@ const SignUp = () => {
   return (
     <>
      <Container className="d-flex flex-column"
-        style={{ height: "100vh", maxHeight: "100vh", width: "100vw" }}>
+        style={{ height: "100vh", maxHeight: "100vh", width: "100vw" , marginTop:'55px'}}>
      <Row className="h-100 align-items-center justify-content-center" >
         <Col xs={12} sm={8} md={5}>
      <Form>

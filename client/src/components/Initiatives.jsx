@@ -39,7 +39,7 @@ const data = [
 
 const AboutUs = () => {
   return (
-    <div className='' style={{ flex: 1, marginTop:'10px' }}>
+    <div className='' style={{ flex: 1, marginTop:'75px' }}>
       <Container className='col-12 d-flex flex-wrap'>
           {
             data?.map((item, index) => (

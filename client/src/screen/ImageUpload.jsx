@@ -19,7 +19,7 @@ const ImageUploader = () => {
   return (
     <>
         <Container>
-        <h1 className='mb-3'>Upload the image</h1>
+        <h1 className='mb-3' style={{marginTop:'85px'}}>Upload the image</h1>
       <input type="file" accept="image/*" onChange={handleImageChange} />
       <button onClick={handleUpload}>Upload</button>
       {selectedImage && (
