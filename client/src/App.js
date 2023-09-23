@@ -13,7 +13,6 @@ import Initiatives from "./components/Initiatives";
 import HomePage from "./components/HomePage";
 import { useRoutes } from "react-router-dom";
 import SecondPage from "./components/SecondPage";
-//import Card1 from "./components/Card1";
 
 function App() {
   // const routes=useRoutes();
@@ -41,6 +40,7 @@ function App() {
             <Route path="/imageupload" element={<ImageUpload />} exact />
             <Route path="/geolocation" element={<Geolocation />} exact />
           </Routes>
+          {/* <Mapp /> */}
         </div>
       </div>
     </BrowserRouter>
