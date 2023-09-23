@@ -12,6 +12,8 @@ import Benefits from "./components/Benefits";
 import Initiatives from "./components/Initiatives";
 import HomePage from "./components/HomePage";
 import { useRoutes } from "react-router-dom";
+import SecondPage from "./components/SecondPage";
+//import Card1 from "./components/Card1";
 
 function App() {
   // const routes=useRoutes();
@@ -21,13 +23,15 @@ function App() {
     <BrowserRouter>
       <div
         className="d-flex flex-column"
-        style={{ height: "100vh", maxHeight: "100vh", width: "100vw" }}
+        style={{ height: "100vh", maxHeight: "100vh", width: "100vw", maxWidth:'100vw',overflowX:'hidden' }}
       >
         <TopBar />
         <NavBar />
         <div className="" style={{ flex: 1 }}>
           <Routes>
             <Route path="/" element={<HomePage />} exact />
+            <Route path="/" element={<Benefits/>} exact />
+            <Route path="/" element={<SecondPage />} exact />
             <Route path="/login" element={<Login />} exact />
             <Route path="/features" element={<HomePage />} exact />
             <Route path="/signup" element={<SignUp />} exact />

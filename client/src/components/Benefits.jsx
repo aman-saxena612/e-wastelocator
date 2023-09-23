@@ -50,8 +50,8 @@ const data = [
 
 const Benefits = () => {
   return (
-    <div className='' style={{ flex: 1, marginTop:'10px' }}>
-      <Container className='col-12 d-flex flex-wrap'>
+    <div className='' style={{ flex: 1, marginTop:'75px' }}>
+      <Container className='col-12 d-flex flex-wrap h-100'>
           {
             data?.map((item, index) => (
               <Card1

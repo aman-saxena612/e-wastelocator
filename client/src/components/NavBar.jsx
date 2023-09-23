@@ -7,7 +7,10 @@ import Logo from '../Images/logo1.jpg'
 const NavBar = () =>  {
   return (
     <>
-    <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary" >
+
+    <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary" 
+    style={{position:'fixed',top:50,left:0,right:0, zIndex:10}}
+    >
       <Container >
         <Navbar.Brand>
             <Image

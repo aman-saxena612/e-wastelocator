@@ -4,7 +4,7 @@ import {Container, Form, Button, Row, Col} from 'react-bootstrap'
 const SignUp = () => {
   return (
     <>
-     <Container className='mx-auto '>
+     <Container className='mx-auto ' style={{marginTop:'105px'}}>
      <Row className="h-100 align-items-center justify-content-center">
         <Col xs={12} sm={8} md={5}>
      <Form>

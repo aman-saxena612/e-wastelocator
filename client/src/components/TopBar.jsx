@@ -4,8 +4,8 @@ import {LinkContainer} from 'react-router-bootstrap'
 import {GiSmart} from "react-icons/gi"
 const TopBar = () => {
   return (
-    <>
-      <Navbar bg="dark"  varient="dark" expand="lg">
+    <div style={{padding:'2rem'}}>
+      <Navbar bg="dark"  varient="dark" expand="lg" style={{position:'fixed',top:0,left:0,right:0, zIndex:10}}>
         <Container fluid >
           <h6 className='text-light'>
             <GiSmart className='text-warning'/> &nbsp;
@@ -27,7 +27,7 @@ const TopBar = () => {
              </Nav>
         </Container>
       </Navbar>
-    </>
+    </div>
   )
 }
 
