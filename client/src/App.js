@@ -38,7 +38,7 @@ function App() {
             <Route path="/imageupload" element={<ImageUpload />} exact />
             <Route path="/geolocation" element={<Geolocation />} exact />
           </Routes>
-          <Mapp />
+          {/* <Mapp /> */}
         </div>
       </div>
     </BrowserRouter>
