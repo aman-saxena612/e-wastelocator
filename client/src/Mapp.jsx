@@ -92,7 +92,7 @@ const Mapp = () => {
             key={index} // Ensure each marker has a unique key
             position={{ lat: place.geometry.location.lat, lng: place.geometry.location.lng}}
             icon={{
-            url: "./icons8-map-marker.gif",
+            url: "./output-onlinegiftools.gif",
  // Specify the path to your custom marker icon image
             scaledSize: {
               width: 50,

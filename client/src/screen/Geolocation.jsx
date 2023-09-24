@@ -1,9 +1,9 @@
 import React from 'react'
-
+import Mapp from '../Mapp'
 const Geolocation = () => {
   return (
     <div>
-      <h1>Map Integration</h1>
+      <Mapp/>
     </div>
   )
 }
